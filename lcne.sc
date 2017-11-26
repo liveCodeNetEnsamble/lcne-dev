@@ -28,7 +28,7 @@ LCNE {
 			q.sendAll(\hist, user, code);
 		};
 
-
+		^"Estas conectado al Ensamble";
 	}
 
 }
