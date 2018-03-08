@@ -2,7 +2,7 @@ LCNE {
 
 	classvar q;
 
-	*start {|user = \default,scope=false|
+	*start {|user = \default, scope = false, meter = false|
 
 		q = ();
 		NetAddr.broadcastFlag = true;
@@ -27,12 +27,13 @@ LCNE {
 			q.sendAll(\hist, user, code);
 		};
 
-		if(scope,{Server.local.scope});
+		if(scope, {Server.local.scope});
+		if(meter, {Server.local.meter});
 
 		^"Estas conectado al Ensamble";
 	}
 
-	*dupOctave {|escala,octavas = 2|
+	*dupOctave {|escala, octavas = 2|
 
 		var res;
 
