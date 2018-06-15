@@ -33,6 +33,14 @@ LCNE {
 		^"Estas conectado al Ensamble";
 	}
 
+	*test {
+		Pbind(\instrument, \default,
+			\dur, 0.5,
+			\amp, 0.1,
+			\out, Pseq([0, 1], 6)
+		).play;
+	}
+
 	*dupOctave {|escala, octavas = 2|
 
 		var res;
