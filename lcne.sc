@@ -2,7 +2,7 @@ LCNE {
 
 	classvar net;
 
-	*start {|user = \default, scope = false, meter = false|
+	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
 		net = ();
 		NetAddr.broadcastFlag = true;
@@ -30,6 +30,19 @@ LCNE {
 		if(scope, {Server.local.scope});
 		if(meter, {Server.local.meter});
 
+
+		/// Esto necesita de la PiranhaLib. Igual se puede hacer a mano. Esto solamente lo declara quien tiene la ventana de OFX. Por aquí dejo una liga :) https://github.com/rggtrn/PiranhaVivo
+
+		if(piranhaV, {
+
+			PirS.start;
+			PirS.n.sendMsg("/textON", 1);
+
+			OSCdef(\ofx, { |msg|
+				PirS.n.sendMsg("/message", msg[2].asString, msg[1].asString);
+			}, \hist);
+		})
+		
 		^"Estas conectado al Ensamble";
 	}
 
