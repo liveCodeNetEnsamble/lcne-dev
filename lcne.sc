@@ -31,7 +31,9 @@ LCNE {
 		if(meter, {Server.local.meter});
 
 
-		/// Esto necesita de la PiranhaLib. Igual se puede hacer a mano. Esto solamente lo declara quien tiene la ventana de OFX. Por aquí dejo una liga :) https://github.com/rggtrn/PiranhaVivo
+		// Necesita la PiranhaLib.
+		// Igual se puede hacer a mano.
+		// Esto solamente lo declara quien tiene la ventana de OpenFrameworksX. Por aquí dejo una liga :) https://github.com/rggtrn/PiranhaVivo
 
 		if(piranhaV, {
 
@@ -52,6 +54,7 @@ LCNE {
 			\amp, 0.1,
 			\out, Pseq([0, 1], 6)
 		).play;
+		^"1, 2, 3 ... probando".inform;
 	}
 
 	*dupOctave {|escala, octavas = 2|
