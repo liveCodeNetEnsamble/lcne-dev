@@ -1,6 +1,7 @@
 LCNE {
 
 	classvar <net;
+	classvar chat;
 
 	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
@@ -26,6 +27,13 @@ LCNE {
 		History.forwardFunc = { |code|
 			net.sendAll(\hist, user, code);
 		};
+
+		OSCdef(\x, {|msg, time, addr, recvPort|
+[msg, time, addr, recvPort].postcln;}, \testlcne);
+	});
+
+chat=this.net.addr;
+
 
 		if(scope, {Server.local.scope});
 		if(meter, {Server.local.meter});
@@ -90,10 +98,12 @@ LCNE {
 
 	}
 
-	/*
-	*compArray {|array|
-	sendBundle	
-	^"compartir array".inform;
+	
+	*compartir {
+for(0, chat.size, {|i, valor|
+chat[i].sendBundle(0.01, [\testlcne, valor]);
+})
+	^"compartir datos".inform;
 }	
-	*/
+	
 }
