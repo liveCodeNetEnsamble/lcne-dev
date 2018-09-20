@@ -63,7 +63,7 @@ LCNE {
 
 		if(octavas < 1 or: {octavas > 4}, {
 
-			^"Solo puedes usar números del 1 al 4 en el parametro 'octaves'".inform;
+			^"Solo puedes usar números del 1 al 4 en el argumento 'octavas'".inform;
 
 			},{
 
