@@ -90,9 +90,9 @@ LCNE {
 
 	}
 
-}
 
-
-*compArray {|array|
+	*compArray {|array|
 	^"compartir array".inform;
 }	
+
+}
