@@ -1,6 +1,6 @@
 LCNE {
 
-	classvar net;
+	classvar <>net;
 
 	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
@@ -90,9 +90,10 @@ LCNE {
 
 	}
 
-
+	/*
 	*compArray {|array|
+	sendBundle	
 	^"compartir array".inform;
 }	
-
+	*/
 }
