@@ -91,3 +91,8 @@ LCNE {
 	}
 
 }
+
+
+*compArray {|array|
+	^"compartir array".inform;
+}	
