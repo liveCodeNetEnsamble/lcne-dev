@@ -32,7 +32,7 @@ LCNE {
 		OSCdef(\x, {|msg, time, addr, recvPort|
 			[msg, time, addr, recvPort].postcln;}, \testlcne);
 
-		this.chat_(this.net.addr);
+		this.chat_(this.net.addrs);
 		chat.postcln;
 		//
 
@@ -103,7 +103,7 @@ LCNE {
 	*compartir {|valor|
 
 		for(0, chat.size, {|i|
-			chat[i].sendBundle(0.01, [\testlcne, "Hola test"]);
+			chat[i].sendBundle(0.01, [\testlcne, valor]);
 		});
 
 	^"compartir datos".inform;
