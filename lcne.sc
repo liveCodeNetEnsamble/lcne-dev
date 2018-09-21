@@ -31,9 +31,9 @@ LCNE {
 		// responder
 		OSCdef(\x, {|msg, time, addr, recvPort|
 			// [msg, time, addr, recvPort].postcln;
-			msg[0].postcln
-			msg[1].postcln
-			msg[2].postcln
+			msg[0].postcln;
+			msg[1].postcln;
+			msg[2].postcln;
 		}, \testlcne);
 
 		this.chat_(this.net.addrs);
