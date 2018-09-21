@@ -1,7 +1,7 @@
 LCNE {
 
 	classvar <net;
-	classvar chat;
+	classvar <>chat;
 
 	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
@@ -28,11 +28,13 @@ LCNE {
 			net.sendAll(\hist, user, code);
 		};
 
+		// responder
 		OSCdef(\x, {|msg, time, addr, recvPort|
-[msg, time, addr, recvPort].postcln;}, \testlcne);
+			[msg, time, addr, recvPort].postcln;}, \testlcne);
 
-chat=this.net.addr;
-
+		this.chat_(this.net.addr);
+		chat.postcln;
+		//
 
 		if(scope, {Server.local.scope});
 		if(meter, {Server.local.meter});
@@ -51,7 +53,7 @@ chat=this.net.addr;
 				PirS.n.sendMsg("/message", msg[2].asString, msg[1].asString);
 			}, \hist);
 		})
-		
+
 		^"Estas conectado al Ensamble";
 	}
 
@@ -97,14 +99,14 @@ chat=this.net.addr;
 
 	}
 
-	
-	*compartir {
 
-		for(0, chat.size, {|i, valor|
-			chat[i].sendBundle(0.01, [\testlcne, valor]);
+	*compartir {|valor|
+
+		for(0, chat.size, {|i|
+			chat[i].sendBundle(0.01, [\testlcne, "Hola test"]);
 		});
 
 	^"compartir datos".inform;
-}	
-	
+}
+
 }
