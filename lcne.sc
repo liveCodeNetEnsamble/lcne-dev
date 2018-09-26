@@ -29,15 +29,13 @@ LCNE {
 		};
 
 		// responder
-		OSCdef(\x, {|msg, time, addr, recvPort|
-			[msg, time, addr, recvPort].postcln;
-			// msg[1].postcln;
-/*			msg[1].postcln;
-			msg[2].postcln;*/
+		OSCdef(\x, {|msg|
+			msg[1..100].postcln;
 		}, \testlcne);
 
-		this.chat_(this.net.addrs);
+		//this.chat_(this.net.addrs);
 		chat.postcln;
+		
 		//
 
 		if(scope, {Server.local.scope});
@@ -106,10 +104,12 @@ LCNE {
 
 	*compartir {|melodia|
 
+	
 		for(0, chat.size, {|i|
-			// chat[i].sendBundle(0.01, [\testlcne, *[melodia].asOSCArgArray,"String","Numeros"]);
+// chat[i].sendBundle(0.01, [\testlcne, *[melodia].asOSCArgArray,"String","Numeros"]);
 			chat[i].sendMsg(\testlcne, *[melodia].asOSCArgArray);
-		});
+			});
+		
 
 	^"compartir datos".inform;
 }
