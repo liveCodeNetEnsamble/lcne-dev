@@ -5,36 +5,42 @@ LCNE {
 
 	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
-		net = ();
+		net = (); //Diccionario: usando un evento
 		NetAddr.broadcastFlag = true;
+		// addrs tiene que ver con el diccionario
+		// crea un array de 8 netaddr
 		net.addrs = (0..7).collect { |x|
 			NetAddr("255.255.255.255", 57120 + x)
 		};
+		// sendAll se agrega al diccionario y se iguala a una función
 		net.sendAll = { |net ... args|
 			net.addrs.do { |addr|
 				addr.sendMsg(*args)
 			}; ""
 		};
-
+		// arranca History y hace una ventana
 		History.start;
 		History.makeWin;
-
+		
+		// Receptor con el tag \hist
 		OSCdef(\hist, { |msg|
 			History.enter(msg[2].asString, msg[1]);
 		}, \hist).fix;
+		
 		History.localOff;
 
 		History.forwardFunc = { |code|
 			net.sendAll(\hist, user, code);
 		};
 
-		// responder
+		// responder array
 		OSCdef(\x, {|msg|
 			msg[1..100].postcln;
 		}, \testlcne);
 
+		chat = "hola";
 		//this.chat_(this.net.addrs);
-		chat.postcln;
+		//chat.postcln;
 		
 		//
 
@@ -63,6 +69,7 @@ LCNE {
 		Pbind(\instrument, \default,
 			\dur, 0.5,
 			\amp, 0.1,
+			\freq, Pseq([200, 200, 400, 400, 600, 600], 1),
 			\out, Pseq([0, 1], 6)
 		).play;
 		^"1, 2, 3 ... probando".inform;
@@ -105,10 +112,12 @@ LCNE {
 	*compartir {|melodia|
 
 	
-		for(0, chat.size, {|i|
+		/*for(0, chat.size, {|i|
 // chat[i].sendBundle(0.01, [\testlcne, *[melodia].asOSCArgArray,"String","Numeros"]);
 			chat[i].sendMsg(\testlcne, *[melodia].asOSCArgArray);
-			});
+			});*/
+
+		net.sendAll(\testlcne, *[1,2,3]);
 		
 
 	^"compartir datos".inform;
