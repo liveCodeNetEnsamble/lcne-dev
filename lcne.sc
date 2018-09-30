@@ -1,18 +1,20 @@
 LCNE {
 
 	classvar <net;
-	classvar <>chat;
+	classvar <array;
+	classvar <interval;
 
 	*start {|user = \default, scope = false, meter = false, piranhaV = false|
 
 		net = (); //Diccionario: usando un evento
 		NetAddr.broadcastFlag = true;
-		// addrs tiene que ver con el diccionario
+		// addrs genera una variable en el diccionario (?)
 		// crea un array de 8 netaddr
 		net.addrs = (0..7).collect { |x|
 			NetAddr("255.255.255.255", 57120 + x)
 		};
 		// sendAll se agrega al diccionario y se iguala a una función
+		// la función significa (?)
 		net.sendAll = { |net ... args|
 			net.addrs.do { |addr|
 				addr.sendMsg(*args)
@@ -34,15 +36,14 @@ LCNE {
 		};
 
 		// responder array
-		OSCdef(\x, {|msg|
-			msg[1..100].postcln;
-		}, \testlcne);
+		OSCdef(\array, {|msg|
+			array = msg[1..100].postcln;
+		}, \array);
 
-		chat = "hola";
-		//this.chat_(this.net.addrs);
-		//chat.postcln;
-		
-		//
+		// responder interval
+		OSCdef(\interval, {|msg|
+			interval = msg[1].postcln;
+		}, \interval);
 
 		if(scope, {Server.local.scope});
 		if(meter, {Server.local.meter});
@@ -108,19 +109,10 @@ LCNE {
 
 	}
 
-
-	*compartir {|melodia|
-
-	
-		/*for(0, chat.size, {|i|
-// chat[i].sendBundle(0.01, [\testlcne, *[melodia].asOSCArgArray,"String","Numeros"]);
-			chat[i].sendMsg(\testlcne, *[melodia].asOSCArgArray);
-			});*/
-
-		net.sendAll(\testlcne, *[1,2,3]);
+	*ventana{
 		
+		^"Mensajes".inform;
+	}
 
-	^"compartir datos".inform;
-}
 
 }
