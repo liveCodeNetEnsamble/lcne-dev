@@ -114,5 +114,13 @@ LCNE {
 		^"Mensajes".inform;
 	}
 
+    *arreglo{|arreglo=#[1, 2, 3]|
+		this.net.sendAll(\array, *arreglo)
+		^"array".inform;
+	}
 
+	*intervalo{|interval = 1|
+		this.net.sendAll(\interval, interval);
+		^"interval".inform;
+	}
 }
